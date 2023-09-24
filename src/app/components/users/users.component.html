@@ -1,0 +1,30 @@
+<div class="jumbotron jumbotron-fluid modal-static sticky-top">
+  <div class="container-fluid">
+    <div class="flex-row">
+      <div class="col-md-12 col-sm-6 col-lg-12">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Apellido</th>
+              <th scope="col">email</th>
+              <th scope="col">Posicion</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of dataUsers.data.users">
+              <td scope="row">{{ user.id }}</td>
+              <td scope="row">{{ user.name }}</td>
+              <td scope="row">{{ user.lastname }}</td>
+              <td scope="row">{{ user.email }}</td>
+              <td scope="row">{{ user.work_position }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
