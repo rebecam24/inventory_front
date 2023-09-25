@@ -27,3 +27,13 @@ export interface User {
   work_position: string
 }
 
+export interface LoginResponse {
+  status: string
+  message: string
+  data: DataLogin
+}
+
+export interface DataLogin {
+  token: string
+  user: User
+}
