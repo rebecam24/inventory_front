@@ -6,10 +6,28 @@ import { IndexComponent } from './components/index/index.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Routes = [
-  { path: '', redirectTo:'/index', pathMatch: 'full'},
+  { path: '', redirectTo:'/home', pathMatch: 'full'},
+  { path: 'home', component: IndexComponent},
   { path: 'index', component: DashboardComponent},
   { path: 'login', component: AuthenticationComponent },
-  { path: 'users', component: UsersComponent },
+  { path: 'users', component: UsersComponent }
+
+  // { path: 'users', component: UsersComponent,
+  //   children: [
+  //     {
+  //       path: 'show',
+  //       component: ChileComponent
+  //     },
+  //     {
+  //       path: 'argentina',
+  //       component: ArgentinaComponent
+  //     },
+  //     {
+  //       path: 'uruguay',
+  //       component: UruguayComponent
+  //     }
+  //   ]
+  // },
 ];
 
 @NgModule({

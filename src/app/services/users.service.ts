@@ -15,6 +15,7 @@ export class UsersService {
   });
 
   private baseUrl = `${enviroment.baseUrl}/api/`;
+  private header = {'Authorization': `Bearer ${localStorage.getItem('token')}` };
 
   constructor(
     private http: HttpClient,
@@ -22,10 +23,9 @@ export class UsersService {
 
   getUsers(): Promise<DataResponse> {
     return new Promise((resolve,reject)=>{
-      this.http.get<DataResponse>(`${ this.baseUrl }users`).subscribe(resp =>{
+      this.http.get<DataResponse>(`${ this.baseUrl }users`, { headers:this.header }).subscribe(resp =>{
         this.subject.next(resp)
         resolve(resp)
-
       });
     })
   }
