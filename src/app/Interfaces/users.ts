@@ -4,8 +4,17 @@ export interface DataResponse {
   data: Data
 }
 
+export interface DataResponseEdit {
+  status: string
+  message: string
+  data: DataEdit
+}
 export interface Data {
   users: User[]
+}
+
+export interface DataEdit {
+  user: User
 }
 
 export interface User {
