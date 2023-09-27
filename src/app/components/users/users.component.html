@@ -1,5 +1,5 @@
-<div class="m-auto">
-  <div class="jumbotron jumbotron-fluid modal-static sticky-top mb-0">
+<div class="m-auto col-md-8">
+  <div class="jumbotron jumbotron-fluid modal-static sticky-top mb-0 bg-white">
     <div class="container-fluid">
       <div class="flex-row">
         <div class="col-md-12 col-sm-6 col-lg-12">
@@ -22,10 +22,109 @@
                 <td scope="row">{{ user.lastname }}</td>
                 <td scope="row">{{ user.email }}</td>
                 <td scope="row">{{ user.work_position }}</td>
+                <td scope="row">
+                  <div class="d-flex justify-content-between">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#userModal">
+                      <a (click)="showUserModal(user.id)">
+                        <i class="bi bi-eye"></i>
+                      </a>
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editUserModal">
+                      <a (click)="editUserModal(user.id)">
+                        <i class="bi bi-pencil-square"></i>
+                      </a>
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#deleteUserModal">
+                      <a (click)="deleteUserModal(user.id)">
+                        <i class="bi bi-trash"></i>
+                      </a>
+                    </button>
+                  </div>
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="userModalLabel">Informacion del Usuario</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Nombre: {{ showUser.data.user.name }}</p>
+        <p>Apellido: {{ showUser.data.user.lastname }}</p>
+        <p>Cedula: {{ showUser.data.user.id_number }}</p>
+        <p>Email: {{ showUser.data.user.email }}</p>
+        <p>Sexo: {{ showUser.data.user.gender }}</p>
+        <p>Posicion: {{ showUser.data.user.work_position }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editModalLabel">Editar informacion del Usuario</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form [formGroup]="editUserForm">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="email" class="form-label">Correo Electronico</label>
+            <input
+            formControlName="email"
+            type="email"
+            class="form-control"
+            id="email"
+            [value]="showUser.data.user.email">
+
+            <div *ngIf="email.invalid && (email.dirty || email.touched)"
+              class="text-danger">
+
+              <div *ngIf="email.errors?.['required']">
+                El email es requerido.
+              </div>
+              <div *ngIf="email.errors?.['email']">
+                El email debe tener un formato valido
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" (click)="editUserModal(showUser.data.user.id)">Actualizar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="deleteModalLabel">Eliminar Usuario</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿ Esta seguro que desea eliminar este usuario?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Aceptar</button>
       </div>
     </div>
   </div>

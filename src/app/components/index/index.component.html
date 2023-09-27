@@ -1,1 +1,38 @@
-<p>Bienvenido al sistema de inventario Bodegón y algo más</p>
+<div class="jumbotron jumbotron-fluid mb-0 bg-white">
+  <div class="container">
+    <h1 class="display-3">Bienvenido al sistema de inventario Bodegón y algo más</h1>
+    <hr class="my-2">
+    <div>
+      <div class="row" *ngIf="!userLoginOn">
+        <div class="col-sm-6 mb-3 mb-sm-0">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Registro de Usuario</h5>
+              <p class="card-text">Sección para registrar a un usuario.</p>
+              <a routerLink="/login" class="btn btn-primary">Registrar</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Inicio de Sesión</h5>
+              <p class="card-text">Sección para Inicio de sesion de usuario registrado.</p>
+              <a routerLink="/login" class="btn btn-primary">Iniciar de Sesión</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="userLoginOn">
+        <div class="col-sm-6 mb-3 mb-sm-0">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Bienvenido al Sistema {{this.userData?.name }} {{this.userData?.lastname }}</h5>
+              <a routerLink="/index" class="btn btn-primary">Ver Dashboard</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -29,24 +29,7 @@ export class LoginService {
   });
 
   currentUserLoginOn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  currentUserData: BehaviorSubject<User> = new BehaviorSubject<User>({id: -1,
-    name: "",
-    email: "",
-    email_verified_at: "",
-    created_at: "",
-    updated_at: "",
-    address: "",
-    birthday: "",
-    deleted_at: "",
-    gender: "",
-    id_number: "",
-    lastname: "",
-    phone: "",
-    role_id: -1,
-    url_image: "",
-    work_position: ""} );
-
-  // datoUsuario = JSON.parse(localStorage.getItem('usuario'));
+  currentUserData: BehaviorSubject<User> = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')!));
 
   private baseUrl = `${enviroment.baseUrl}/api/`;
 
@@ -59,10 +42,10 @@ export class LoginService {
       this.http.post<LoginResponse>(`${ this.baseUrl }login`, credentials).subscribe(resp =>{
         this.subject.next(resp)
         resolve(resp)
-        // console.log("Response login", resp);
-
         this.currentUserLoginOn.next(true);
         this.currentUserData.next(resp.data.user);
+        localStorage.setItem('currentUser', JSON.stringify(resp.data.user));
+        localStorage.setItem('token', resp.data.token);
         reject(this.handleError)
       })
     })
@@ -84,5 +67,12 @@ export class LoginService {
 
   get userLoginOn():Observable<boolean> {
     return this.currentUserLoginOn.asObservable();
+  }
+
+  logout() {
+    //remove user from localStorage
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('token');
+    this.currentUserData.next({"id":-1,"name":"","lastname":"","id_number":"","email":"","phone":"","address":"","birthday":"","gender":"","role_id":-1,"work_position":"","url_image":null,"created_at":"","updated_at":"", 'deleted_at': "", 'email_verified_at': ""});
   }
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { UsersService } from 'src/app/services/users.service';
-import { FormBuilder, Validator, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/auth/login.service';
 import { LoginRequest } from 'src/app/Interfaces/login';
@@ -30,8 +30,8 @@ export class AuthenticationComponent {
                               work_position: ""} },message:"",status:""
   }
   loginForm = this.formBuilder.group({
-    email:['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(8)]]
+    email:['admin@admin.com', [Validators.required, Validators.email]],
+    password: ['12345678', [Validators.required, Validators.minLength(8)]]
   })
 
   constructor(
@@ -52,14 +52,14 @@ export class AuthenticationComponent {
     if (this.loginForm.valid) {
       this.loginService.login(this.loginForm.value as LoginRequest)
       .then((resp) => {
-        console.log(resp);
+        console.log("resp en comp login",resp);
       })
       .catch((err) => {
         console.error(err);
       })
       .finally(() => {
         console.log('Login completado');
-        this.router.navigateByUrl('/users');
+        this.router.navigateByUrl('/index');
         this.loginForm.reset();
       });
     }else{
