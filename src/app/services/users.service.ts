@@ -20,10 +20,10 @@ export class UsersService {
     }
   });
 
-  // userSubject = new BehaviorSubject<User>({"id":-1,"name":"","lastname":"","id_number":"","email":"","phone":"","address":"","birthday":"","gender":"","role_id":-1,"work_position":"","url_image":null,"created_at":"","updated_at":"", 'deleted_at': "", 'email_verified_at': ""});
+
 
   private baseUrl = `${enviroment.baseUrl}/api/`;
-  private header = {'Authorization': `Bearer ${localStorage.getItem('token')}` };
+  private header = {'Authorization': `Bearer ${localStorage.getItem('token')}`, 'Content-Type': `application/json` };
 
   constructor(
     private http: HttpClient,
@@ -51,11 +51,9 @@ export class UsersService {
 
   putEditUser(id:number, data:User): Promise<DataResponseEdit> {
     return new Promise((resolve,reject)=>{
-      this.http.put<DataResponseEdit>(`${ this.baseUrl }users/${id}`, { headers:this.header }).subscribe(resp =>{
+      this.http.put<DataResponseEdit>(`${ this.baseUrl }users/${id}`, data, { headers:this.header }).subscribe(resp =>{
         this.subjectEdit.next(resp)
         resolve(resp)
-        console.log("Respuesta del servicio edit",resp);
-
       });
     })
   }
