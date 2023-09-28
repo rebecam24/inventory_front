@@ -30,7 +30,7 @@
                       </a>
                     </button>
                     <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editUserModal">
-                      <a (click)="editUserModal(user.id)">
+                      <a (click)="setEditUserModal(user.id)">
                         <i class="bi bi-pencil-square"></i>
                       </a>
                     </button>
@@ -57,12 +57,15 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p>Nombre: {{ showUser.data.user.name }}</p>
-        <p>Apellido: {{ showUser.data.user.lastname }}</p>
-        <p>Cedula: {{ showUser.data.user.id_number }}</p>
-        <p>Email: {{ showUser.data.user.email }}</p>
-        <p>Sexo: {{ showUser.data.user.gender }}</p>
-        <p>Posicion: {{ showUser.data.user.work_position }}</p>
+        <p>Nombre:        {{ showUser.data.user.name }}</p>
+        <p>Apellido:      {{ showUser.data.user.lastname }}</p>
+        <p>Cedula:        {{ showUser.data.user.id_number }}</p>
+        <p>Fecha de Nacimiento: {{ showUser.data.user.birthday }}</p>
+        <p>Email:               {{ showUser.data.user.email }}</p>
+        <p>Telefono:            {{ showUser.data.user.phone }}</p>
+        <p>Sexo:                {{ showUser.data.user.gender }}</p>
+        <p>Direccion:           {{ showUser.data.user.address }}</p>
+        <p>Posicion:            {{ showUser.data.user.work_position }}</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -78,34 +81,156 @@
         <h1 class="modal-title fs-5" id="editModalLabel">Editar informacion del Usuario</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form [formGroup]="editUserForm">
+      <form [formGroup]="editUserForm" (ngSubmit)="editUserModal(showUser.data.user.id)">
         <div class="modal-body">
+          <div class="mb-3">
+            <label for="name" class="form-label">Nombre</label>
+            <input
+            formControlName="name"
+            type="text"
+            class="form-control"
+            id="name">
+
+            <div *ngIf="name.invalid && (name.dirty || name.touched)"
+              class="text-danger">
+              <div *ngIf="name.errors?.['minlength']">
+                El nombre debe tener mas de 3 caracteres
+              </div>
+              <div *ngIf="name.errors?.['maxlength']">
+                El nombre debe tener menos de 45 caracteres
+              </div>
+
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="lastname" class="form-label">Apellido</label>
+            <input
+            formControlName="lastname"
+            type="text"
+            class="form-control"
+            id="lastname">
+
+            <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)"
+              class="text-danger">
+              <div *ngIf="lastname.errors?.['minlength']">
+                El apellido debe tener mas de 3 caracteres
+              </div>
+              <div *ngIf="lastname.errors?.['maxlength']">
+                El apellido debe tener menos de 45 caracteres
+              </div>
+
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="id_number" class="form-label">Cedula</label>
+            <input
+            formControlName="id_number"
+            type="text"
+            class="form-control"
+            id="id_number">
+
+            <div *ngIf="id_number.invalid && (id_number.dirty || id_number.touched)"
+              class="text-danger">
+              <div *ngIf="id_number.errors?.['minlength']">
+                La cedula debe tener mas de 3 caracteres
+              </div>
+              <div *ngIf="id_number.errors?.['maxlength']">
+                La cedula debe tener menos de 45 caracteres
+              </div>
+
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="birthday" class="form-label">Fecha de nacimiento</label>
+            <input
+            formControlName="birthday"
+            type="text"
+            class="form-control"
+            id="birthday">
+          </div>
+
           <div class="mb-3">
             <label for="email" class="form-label">Correo Electronico</label>
             <input
             formControlName="email"
             type="email"
             class="form-control"
-            id="email"
-            [value]="showUser.data.user.email">
+            id="email">
 
             <div *ngIf="email.invalid && (email.dirty || email.touched)"
               class="text-danger">
-
-              <div *ngIf="email.errors?.['required']">
-                El email es requerido.
-              </div>
               <div *ngIf="email.errors?.['email']">
                 El email debe tener un formato valido
               </div>
 
             </div>
           </div>
+
+          <div class="mb-3">
+            <label for="phone" class="form-label">Telefono</label>
+            <input
+            formControlName="phone"
+            type="text"
+            class="form-control"
+            id="phone">
+
+            <div *ngIf="phone.invalid && (phone.dirty || phone.touched)"
+              class="text-danger">
+              <div *ngIf="phone.errors?.['minlength']">
+                El telefono debe tener mas de 7 caracteres
+              </div>
+              <div *ngIf="phone.errors?.['maxlength']">
+                El telefono debe tener menos de 15 caracteres
+              </div>
+
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="gender" class="form-label">Sexo</label>
+            <input
+            formControlName="gender"
+            type="text"
+            class="form-control"
+            id="gender">
+
+            <div *ngIf="gender.invalid && (gender.dirty || gender.touched)"
+              class="text-danger">
+              <div *ngIf="gender.errors?.['maxlength']">
+                El sexo debe tener menos de 45 caracteres
+              </div>
+
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="address" class="form-label">Direccion</label>
+            <input
+            formControlName="address"
+            type="text"
+            class="form-control"
+            id="address">
+
+            <div *ngIf="address.invalid && (address.dirty || address.touched)"
+              class="text-danger">
+              <div *ngIf="address.errors?.['minlength']">
+                La direccion debe tener mas de 10 caracteres
+              </div>
+              <div *ngIf="address.errors?.['maxlength']">
+                La direccion debe tener menos de 100 caracteres
+              </div>
+
+            </div>
+          </div>
+
         </div>
 
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary" (click)="editUserModal(showUser.data.user.id)">Actualizar</button>
+          <button type="submit" class="btn btn-primary">Actualizar</button>
         </div>
       </form>
     </div>
