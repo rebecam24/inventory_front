@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { enviroment } from '../../enviroments/enviroment';
-import { DataResponse, DataResponseEdit, User } from '../Interfaces/users';
+import { DataResponse, DataResponseDelete, DataResponseSaveOrUpdate, User } from '../Interfaces/users';
 import { BehaviorSubject } from 'rxjs';
 import { Data } from '@angular/router';
 
@@ -14,10 +14,13 @@ export class UsersService {
   subject = new BehaviorSubject<DataResponse>({
     data:{ users: [] },message:"",status:""
   });
-  subjectEdit = new BehaviorSubject<DataResponseEdit>({
+  subjectEdit = new BehaviorSubject<DataResponseSaveOrUpdate>({
     message:"",status:"",data:{ user:
       {"id":-1,"name":"","lastname":"","id_number":"","email":"","phone":"","address":"","birthday":"","gender":"","role_id":-1,"work_position":"","url_image":null,"created_at":"","updated_at":"", 'deleted_at': "", 'email_verified_at': ""}
     }
+  });
+  subjectDelete = new BehaviorSubject<DataResponseDelete>({
+    data:[] ,message:"",status:""
   });
 
 
@@ -38,9 +41,9 @@ export class UsersService {
     })
   }
 
-  getShowUser(id:number): Promise<DataResponseEdit> {
+  getShowUser(id:number): Promise<DataResponseSaveOrUpdate> {
     return new Promise((resolve,reject)=>{
-      this.http.get<DataResponseEdit>(`${ this.baseUrl }users/${id}`, { headers:this.header }).subscribe(resp =>{
+      this.http.get<DataResponseSaveOrUpdate>(`${ this.baseUrl }users/${id}`, { headers:this.header }).subscribe(resp =>{
         this.subjectEdit.next(resp)
         resolve(resp)
         // console.log("Respuesta del servicio",resp);
@@ -49,12 +52,33 @@ export class UsersService {
     })
   }
 
-  putEditUser(id:number, data:User): Promise<DataResponseEdit> {
+  postCreateUser(data:User): Promise<DataResponseSaveOrUpdate> {
     return new Promise((resolve,reject)=>{
-      this.http.put<DataResponseEdit>(`${ this.baseUrl }users/${id}`, data, { headers:this.header }).subscribe(resp =>{
+      this.http.post<DataResponseSaveOrUpdate>(`${ this.baseUrl }users`, data, { headers:this.header }).subscribe(resp =>{
         this.subjectEdit.next(resp)
         resolve(resp)
       });
     })
   }
+
+  putEditUser(id:number, data:User): Promise<DataResponseSaveOrUpdate> {
+    return new Promise((resolve,reject)=>{
+      this.http.put<DataResponseSaveOrUpdate>(`${ this.baseUrl }users/${id}`, data, { headers:this.header }).subscribe(resp =>{
+        this.subjectEdit.next(resp)
+        resolve(resp)
+      });
+    })
+  }
+
+  deleteUser(id:number): Promise<DataResponseDelete> {
+    return new Promise((resolve,reject)=>{
+      this.http.delete<DataResponseDelete>(`${ this.baseUrl }users/${id}`, { headers:this.header }).subscribe(resp =>{
+        this.subjectDelete.next(resp)
+        console.log("respuesta de borrar", resp);
+
+        resolve(resp)
+      });
+    })
+  }
+
 }
