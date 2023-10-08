@@ -74,5 +74,6 @@ export class LoginService {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('token');
     this.currentUserData.next({"id":-1,"name":"","lastname":"","id_number":"","email":"","phone":"","address":"","birthday":"","gender":"","role_id":-1,"work_position":"","url_image":null,"created_at":"","updated_at":"", 'deleted_at': "", 'email_verified_at': ""});
+    this.currentUserLoginOn.next(false);
   }
 }

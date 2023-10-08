@@ -1,6 +1,10 @@
-<app-header></app-header>
-<router-outlet></router-outlet>
+
+<app-header [hidden]="userLoginOn"></app-header>
+<app-sidebar [isExpanded]="sidebarExpanded" (toggleSidebar)="sidebarExpanded = !sidebarExpanded" [hidden]="!userLoginOn"></app-sidebar>
+<div class="content" [ngClass]="{ 'sidebarExpanded': sidebarExpanded }">
+  <router-outlet></router-outlet>
+</div>
 <div class="fixed-botton">
-  <app-footer></app-footer>
+  <app-footer [hidden]="userLoginOn"></app-footer>
 </div>
 

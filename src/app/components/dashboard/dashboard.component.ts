@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/Interfaces/users';
 import { LoginService } from 'src/app/services/auth/login.service';
 
@@ -9,9 +10,9 @@ import { LoginService } from 'src/app/services/auth/login.service';
 })
 export class DashboardComponent implements OnInit{
   userLoginOn: boolean = false;
-  userData?: User
 
-  constructor(private loginService:LoginService) {}
+  userData?: User
+  constructor(private loginService:LoginService, private router: Router) {}
 
   ngOnInit(): void {
     this.loginService.currentUserLoginOn.subscribe({
@@ -25,5 +26,11 @@ export class DashboardComponent implements OnInit{
         this.userData = userData;
       }
     });
+    console.log("dashboard",this.userLoginOn);
+
+    if (!this.userLoginOn) {
+      console.log("entra al cierre");
+      this.router.navigate(["/home"]);
+    }
   }
 }
