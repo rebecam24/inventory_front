@@ -99,7 +99,7 @@ export class UsersComponent {
       })
       .finally(() => {
         console.log('Creacion de Usuario completada');
-        window.location.reload();
+        this.getAllUsers();
         this.createUserForm.reset();
       });
     }else{
@@ -149,7 +149,7 @@ export class UsersComponent {
     })
     .finally(() => {
       console.log('Eliminacion de Usuario completada');
-      window.location.reload();
+      this.getAllUsers();
     });
   }
 }

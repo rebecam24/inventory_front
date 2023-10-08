@@ -3,9 +3,9 @@
     <h1 class="title">
       <span class="fs-5 d-none d-sm-inline">Menu</span>
     </h1>
-    <div class="toggle" (click)="handleSidebarToggle()">
+    <!-- <div class="toggle" (click)="handleSidebarToggle()">
       <span class="chevron"></span>
-    </div>
+    </div> -->
   </div>
   <div class="content">
     <div class="link">
@@ -29,15 +29,15 @@
       </div>
     </div>
     <div class="link">
-      <div class="content" [routerLink]="['#']" [routerLinkActive]="'active'">
+      <div class="content" [routerLink]="['/categories']" [routerLinkActive]="'active'">
         <i class="fs-4 bi bi-tags"></i> <span class="ms-1 d-none d-sm-inline">Categorias</span>
       </div>
     </div>
     <div class="link" *ngIf="userLoginOn">
-      <div>
+      <div class="content">
         <button
           type="submit"
-          class=" flex justify-content-center btn btn-sm btn-light bg-transparent"
+          class=" flex justify-content-center btn btn-sm bg-transparent"
           (click)="logout()"
           >
             <i class="fs-4 bi bi-person"></i><span>Cerrar Sesión</span>
