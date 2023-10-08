@@ -19,7 +19,7 @@ export class UsersComponent {
   public roles: number [] = [UserRole.Administrador,UserRole.Moderador,UserRole.User];
   public idDelete: number = -1;
   public nameDelete: string = '';
-
+  sidebarExpanded = true;
 
 
   editUserForm = this.formBuilder.group({
@@ -83,7 +83,7 @@ export class UsersComponent {
 
   async showUserModal(id:number) {
     this.showUser = await this.usersService.getShowUser(id);
-    console.log("showUser",this.showUser.data.user);
+    // console.log("showUser",this.showUser.data.user);
   }
 
   async createUserModal() {
