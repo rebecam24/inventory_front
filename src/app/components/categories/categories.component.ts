@@ -12,7 +12,7 @@ import { CategoriesService } from 'src/app/services/categories.service';
   styleUrls: ['./categories.component.css']
 })
 export class CategoriesComponent {
-  @ViewChild('closebutton') closebutton:any;
+
   public dataCategories: DataResponseCategory = { data:{ categories: [] },message:"",status:"" };
   public showCategory: DataResponseSaveOrUpdateCategory = { status:"", message:"", data:{ category: {"id":-1,"name":"","description":""} } };
   public editCategory?: DataResponseSaveOrUpdateCategory;
@@ -98,7 +98,7 @@ export class CategoriesComponent {
 
   }
 
-  async editUserModal(id:number) {
+  async editCategoryModal(id:number) {
 
     if (this.editCategoryForm.valid) {
       this.categoriesService.putEditCategory(id,this.editCategoryForm.value as Category)

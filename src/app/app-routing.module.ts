@@ -6,6 +6,9 @@ import { IndexComponent } from './components/index/index.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PermissionsGuard } from './guard/permissions.guard';
 import { CategoriesComponent } from './components/categories/categories.component';
+import { ClientsComponent } from './components/clients/clients.component';
+import { CurrenciesComponent } from './components/currencies/currencies.component';
+import { PaymentsMethodsComponent } from './components/payments-methods/payments-methods.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'/home', pathMatch: 'full'},
@@ -13,7 +16,10 @@ const routes: Routes = [
   { path: 'index', component: DashboardComponent, canActivate: [PermissionsGuard]},
   { path: 'login', component: AuthenticationComponent },
   { path: 'users', component: UsersComponent, canActivate: [PermissionsGuard] },
-  { path: 'categories', component: CategoriesComponent, canActivate: [PermissionsGuard] }
+  { path: 'categories', component: CategoriesComponent, canActivate: [PermissionsGuard] },
+  { path: 'clients', component: ClientsComponent, canActivate: [PermissionsGuard] },
+  { path: 'currencies', component: CurrenciesComponent, canActivate: [PermissionsGuard] },
+  { path: 'payments-methods', component: PaymentsMethodsComponent, canActivate: [PermissionsGuard] },
 
   // { path: 'users', component: UsersComponent,
   //   children: [
