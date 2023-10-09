@@ -63,7 +63,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="categoryModalLabel">Informacion del Usuario</h1>
+          <h1 class="modal-title fs-5" id="categoryModalLabel">Informacion del Categoria</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -81,13 +81,13 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="createModalLabel">Registrar informacion del Usuario</h1>
+          <h1 class="modal-title fs-5" id="createModalLabel">Registrar informacion del Categoria</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form [formGroup]="createCategoryForm" (ngSubmit)="createCategoryModal()">
           <div class="modal-body">
             <div class="mb-3">
-              <label for="name" class="form-label">Nombre</label>
+              <label for="name" class="form-label">Nombre de Categoria</label>
               <input
               formControlName="name"
               type="text"
@@ -107,7 +107,7 @@
             </div>
 
             <div class="mb-3">
-              <label for="description" class="form-label">Apellido</label>
+              <label for="description" class="form-label">Descripcion</label>
               <input
               formControlName="description"
               type="text"
@@ -117,10 +117,10 @@
               <div *ngIf="description.invalid && (description.dirty || description.touched)"
                 class="text-danger">
                 <div *ngIf="description.errors?.['minlength']">
-                  El apellido debe tener mas de 3 caracteres
+                  La descripcion debe tener mas de 3 caracteres
                 </div>
                 <div *ngIf="description.errors?.['maxlength']">
-                  El apellido debe tener menos de 45 caracteres
+                  La descripcion debe tener menos de 45 caracteres
                 </div>
 
               </div>
@@ -140,10 +140,10 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="editModalLabel">Editar informacion del Usuario</h1>
+          <h1 class="modal-title fs-5" id="editModalLabel">Editar informacion del Categoria</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form [formGroup]="editCategoryForm" (ngSubmit)="editUserModal(showCategory.data.category.id)">
+        <form [formGroup]="editCategoryForm" (ngSubmit)="editCategoryModal(showCategory.data.category.id)">
           <div class="modal-body">
             <div class="mb-3">
               <label for="name" class="form-label">Nombre de Categoria</label>
@@ -198,7 +198,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="deleteModalLabel">Eliminar Usuario</h1>
+          <h1 class="modal-title fs-5" id="deleteModalLabel">Eliminar Categoria</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">

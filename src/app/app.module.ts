@@ -14,6 +14,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { CategoriesComponent } from './components/categories/categories.component';
+import { ClientsComponent } from './components/clients/clients.component';
+import { CurrenciesComponent } from './components/currencies/currencies.component';
+import { PaymentsMethodsComponent } from './components/payments-methods/payments-methods.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { CategoriesComponent } from './components/categories/categories.componen
     DashboardComponent,
     NavbarComponent,
     SidebarComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    ClientsComponent,
+    CurrenciesComponent,
+    PaymentsMethodsComponent
   ],
   imports: [
     BrowserModule,

@@ -51,7 +51,6 @@ export class AuthenticationComponent {
     if (this.loginForm.valid) {
       this.loginService.login(this.loginForm.value as LoginRequest)
       .then((resp) => {
-        console.log("resp en comp login",resp);
       })
       .catch((err) => {
         console.error(err);
