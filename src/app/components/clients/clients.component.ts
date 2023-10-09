@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./clients.component.css']
 })
 export class ClientsComponent {
-
+  sidebarExpanded = true;
 }
