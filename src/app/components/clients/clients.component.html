@@ -1,1 +1,69 @@
-<p>clients works!</p>
+<app-sidebar [isExpanded]="sidebarExpanded" (toggleSidebar)="sidebarExpanded = !sidebarExpanded"></app-sidebar>
+<div class="content" [ngClass]="{ 'sidebarExpanded': sidebarExpanded }">
+
+  <div class="m-auto col-md-8">
+    <div class="jumbotron jumbotron-fluid modal-static sticky-top mb-0 bg-white">
+      <h1 class="display-3">Clientes</h1>
+      <hr class="my-2">
+      <div class="container-fluid">
+        <div class="col-md-12 d-flex flex-row-reverse mb-3">
+          <button type="button"
+                  class="btn btn-outline-secondary"
+                  data-bs-toggle="modal" data-bs-target="#createCurrencyModal"
+                  ><i class="bi bi-person-plus"></i>
+            Registrar Cliente
+          </button>
+        </div>
+
+        <div class="flex-row">
+          <div class="col-md-12 col-sm-6 col-lg-12">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Apellido</th>
+                  <th scope="col">Cedula</th>
+                  <th scope="col">Direccion</th>
+                  <th scope="col">Telefono</th>
+                  <th scope="col">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr >
+                  <td scope="row"></td>
+                  <td scope="row"></td>
+                  <td scope="row"></td>
+                  <td scope="row"></td>
+                  <td scope="row"></td>
+                  <td scope="row"></td>
+                  <td scope="row">
+                    <div class="d-flex justify-content-between">
+                      <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#currencyModal">
+                        <a >
+                          <i class="bi bi-eye"></i>
+                        </a>
+                      </button>
+                      <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editCurrencyModal">
+                        <a >
+                          <i class="bi bi-pencil-square"></i>
+                        </a>
+                      </button>
+                      <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#deleteCurrencyModal">
+                        <a >
+                          <i class="bi bi-trash"></i>
+                        </a>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
