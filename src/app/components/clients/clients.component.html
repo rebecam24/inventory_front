@@ -9,7 +9,7 @@
         <div class="col-md-12 d-flex flex-row-reverse mb-3">
           <button type="button"
                   class="btn btn-outline-secondary"
-                  data-bs-toggle="modal" data-bs-target="#createCurrencyModal"
+                  data-bs-toggle="modal" data-bs-target="#createClientModal"
                   ><i class="bi bi-person-plus"></i>
             Registrar Cliente
           </button>
@@ -30,27 +30,27 @@
                 </tr>
               </thead>
               <tbody>
-                <tr >
-                  <td scope="row"></td>
-                  <td scope="row"></td>
-                  <td scope="row"></td>
-                  <td scope="row"></td>
-                  <td scope="row"></td>
-                  <td scope="row"></td>
+                <tr *ngFor="let item of dataClients.data.clients">
+                  <td scope="row">{{ item.id }}</td>
+                  <td scope="row">{{ item.name }}</td>
+                  <td scope="row">{{ item.lastname }}</td>
+                  <td scope="row">{{ item.id_number }}</td>
+                  <td scope="row">{{ item.address }}</td>
+                  <td scope="row">{{ item.phone }}</td>
                   <td scope="row">
                     <div class="d-flex justify-content-between">
-                      <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#currencyModal">
-                        <a >
+                      <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#clientModal">
+                        <a (click)="showClientModal(item.id)">
                           <i class="bi bi-eye"></i>
                         </a>
                       </button>
-                      <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editCurrencyModal">
-                        <a >
+                      <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editClientModal">
+                        <a (click)="setEditClientModal(item.id)">
                           <i class="bi bi-pencil-square"></i>
                         </a>
                       </button>
-                      <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#deleteCurrencyModal">
-                        <a >
+                      <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#deleteClientModal">
+                        <a (click)="deleteClientModal(item.id, item.name)">
                           <i class="bi bi-trash"></i>
                         </a>
                       </button>
@@ -65,5 +65,282 @@
     </div>
   </div>
 
+  <div class="modal fade" id="clientModal" tabindex="-1" aria-labelledby="clientModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="clientModalLabel">Informacion del Client</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Nombre:        {{ showClient.data.client.name }}</p>
+          <p>Apellido:      {{ showClient.data.client.lastname }}</p>
+          <p>Cedula:        {{ showClient.data.client.id_number }}</p>
+          <p>Telefono:      {{ showClient.data.client.phone }}</p>
+          <p>Direccion:     {{ showClient.data.client.address }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <div class="modal fade" id="createClientModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="createModalLabel">Registrar informacion del Cliente</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form [formGroup]="createClientForm" (ngSubmit)="createClientModal()">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="name" class="form-label">Nombre</label>
+              <input
+              formControlName="name"
+              type="text"
+              class="form-control"
+              id="nameC">
+
+              <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                class="text-danger">
+                <div *ngIf="name.errors?.['minlength']">
+                  El nombre debe tener mas de 3 caracteres
+                </div>
+                <div *ngIf="name.errors?.['maxlength']">
+                  El nombre debe tener menos de 45 caracteres
+                </div>
+
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="lastname" class="form-label">Apellido</label>
+              <input
+              formControlName="lastname"
+              type="text"
+              class="form-control"
+              id="lastnameC">
+
+              <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)"
+                class="text-danger">
+                <div *ngIf="lastname.errors?.['minlength']">
+                  El apellido debe tener mas de 3 caracteres
+                </div>
+                <div *ngIf="lastname.errors?.['maxlength']">
+                  El apellido debe tener menos de 45 caracteres
+                </div>
+
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="id_number" class="form-label">Cedula</label>
+              <input
+              formControlName="id_number"
+              type="text"
+              class="form-control"
+              id="id_numberC">
+
+              <div *ngIf="id_number.invalid && (id_number.dirty || id_number.touched)"
+                class="text-danger">
+                <div *ngIf="id_number.errors?.['minlength']">
+                  La cedula debe tener mas de 3 caracteres
+                </div>
+                <div *ngIf="id_number.errors?.['maxlength']">
+                  La cedula debe tener menos de 45 caracteres
+                </div>
+
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="phone" class="form-label">Telefono</label>
+              <input
+              formControlName="phone"
+              type="text"
+              class="form-control"
+              id="phoneC">
+
+              <div *ngIf="phone.invalid && (phone.dirty || phone.touched)"
+                class="text-danger">
+                <div *ngIf="phone.errors?.['minlength']">
+                  El telefono debe tener mas de 7 caracteres
+                </div>
+                <div *ngIf="phone.errors?.['maxlength']">
+                  El telefono debe tener menos de 15 caracteres
+                </div>
+
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="address" class="form-label">Direccion</label>
+              <input
+              formControlName="address"
+              type="text"
+              class="form-control"
+              id="addressC">
+
+              <div *ngIf="address.invalid && (address.dirty || address.touched)"
+                class="text-danger">
+                <div *ngIf="address.errors?.['minlength']">
+                  La direccion debe tener mas de 10 caracteres
+                </div>
+                <div *ngIf="address.errors?.['maxlength']">
+                  La direccion debe tener menos de 100 caracteres
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary" #closeModal >Registrar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="editClientModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="editModalLabel">Editar informacion del Usuario</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form [formGroup]="editClientForm" (ngSubmit)="editClientModal(showClient.data.client.id)">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="name" class="form-label">Nombre</label>
+              <input
+              formControlName="name"
+              type="text"
+              class="form-control"
+              id="nameE">
+
+              <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                class="text-danger">
+                <div *ngIf="name.errors?.['minlength']">
+                  El nombre debe tener mas de 3 caracteres
+                </div>
+                <div *ngIf="name.errors?.['maxlength']">
+                  El nombre debe tener menos de 45 caracteres
+                </div>
+
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="lastname" class="form-label">Apellido</label>
+              <input
+              formControlName="lastname"
+              type="text"
+              class="form-control"
+              id="lastnameE">
+
+              <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)"
+                class="text-danger">
+                <div *ngIf="lastname.errors?.['minlength']">
+                  El apellido debe tener mas de 3 caracteres
+                </div>
+                <div *ngIf="lastname.errors?.['maxlength']">
+                  El apellido debe tener menos de 45 caracteres
+                </div>
+
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="id_number" class="form-label">Cedula</label>
+              <input
+              formControlName="id_number"
+              type="text"
+              class="form-control"
+              id="id_numberE">
+
+              <div *ngIf="id_number.invalid && (id_number.dirty || id_number.touched)"
+                class="text-danger">
+                <div *ngIf="id_number.errors?.['minlength']">
+                  La cedula debe tener mas de 3 caracteres
+                </div>
+                <div *ngIf="id_number.errors?.['maxlength']">
+                  La cedula debe tener menos de 45 caracteres
+                </div>
+
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="phone" class="form-label">Telefono</label>
+              <input
+              formControlName="phone"
+              type="text"
+              class="form-control"
+              id="phoneE">
+
+              <div *ngIf="phone.invalid && (phone.dirty || phone.touched)"
+                class="text-danger">
+                <div *ngIf="phone.errors?.['minlength']">
+                  El telefono debe tener mas de 7 caracteres
+                </div>
+                <div *ngIf="phone.errors?.['maxlength']">
+                  El telefono debe tener menos de 15 caracteres
+                </div>
+
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="address" class="form-label">Direccion</label>
+              <input
+              formControlName="address"
+              type="text"
+              class="form-control"
+              id="addressE">
+
+              <div *ngIf="address.invalid && (address.dirty || address.touched)"
+                class="text-danger">
+                <div *ngIf="address.errors?.['minlength']">
+                  La direccion debe tener mas de 10 caracteres
+                </div>
+                <div *ngIf="address.errors?.['maxlength']">
+                  La direccion debe tener menos de 100 caracteres
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Actualizar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="deleteClientModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="deleteModalLabel">Eliminar Client</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ¿Esta seguro que desea eliminar al cliente {{nameDelete}}?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" (click)="delete(idDelete)">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
