@@ -104,6 +104,7 @@
               type="text"
               class="form-control"
               id="role_id">
+                <option [value]="" selected>Seleccione el tipo de rol</option>
                 <option [value]="item" *ngFor="let item of roles">{{item == 1 ? "Administrador" : "Moderador"}}</option>
                 </select>
             </div>
