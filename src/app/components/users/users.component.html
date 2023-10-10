@@ -88,7 +88,7 @@
     </div>
   </div>
 
-  <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+  <div #closeModal class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -286,7 +286,7 @@
 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="submit" class="btn btn-primary" #closeModal >Registrar</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Registrar</button>
           </div>
         </form>
       </div>
@@ -449,7 +449,7 @@
 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="submit" class="btn btn-primary">Actualizar</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Actualizar</button>
           </div>
         </form>
       </div>
@@ -468,7 +468,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary" (click)="delete(idDelete)">Aceptar</button>
+          <button type="button" class="btn btn-primary" (click)="delete(idDelete)" data-bs-dismiss="modal">Aceptar</button>
         </div>
       </div>
     </div>
