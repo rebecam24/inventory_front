@@ -12,17 +12,12 @@ export class PermissionsGuard implements CanActivate {
   constructor(private loginService: LoginService, private router: Router) {}
 
   canActivate(){
-    this.loginService.currentUserLoginOn.subscribe({
-      next:(userLoginOn)=>{
-        this.userLoginOn = userLoginOn;
-      }
-    });
 
-    if (!this.userLoginOn) {
-      this.router.navigate(["/login"]);
-      return false;
+    if (localStorage.getItem("userLoginOn") == "true") {
+      return true;
     }
-    return true;
+    this.router.navigate(["/login"]);
+    return false;
   }
 
 }

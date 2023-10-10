@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { DataResponse, DataResponseSaveOrUpdate, User } from 'src/app/Interfaces/users';
 import { UsersService } from '../../services/users.service';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -9,8 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
-export class UsersComponent {
-
+export class UsersComponent implements AfterViewInit {
 
   public dataUsers: DataResponse = { data:{ users: [] },message:"",status:"" };
   public showUser: DataResponseSaveOrUpdate = { status:"", message:"", data:{ user: {"id":-1,"name":"","lastname":"","id_number":"","email":"","phone":"","address":"","birthday":"","gender":"","role_id":-1,"work_position":"","url_image":null,"created_at":"","updated_at":"", 'deleted_at': "", 'email_verified_at': ""} } };
@@ -60,11 +59,14 @@ export class UsersComponent {
       this.data = this.usersService.subject.subscribe(resp=>{
         this.dataUsers = resp;
       });
-
   }
 
   ngOnInit(): void {
     this.getAllUsers();
+  }
+
+  ngAfterViewInit(): void {
+
   }
 
   get name()       { return this.editUserForm.controls.name; }

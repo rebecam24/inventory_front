@@ -17,6 +17,7 @@ import { CategoriesComponent } from './components/categories/categories.componen
 import { ClientsComponent } from './components/clients/clients.component';
 import { CurrenciesComponent } from './components/currencies/currencies.component';
 import { PaymentsMethodsComponent } from './components/payments-methods/payments-methods.component';
+import { ProductsComponent } from './components/products/products.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { PaymentsMethodsComponent } from './components/payments-methods/payments
     CategoriesComponent,
     ClientsComponent,
     CurrenciesComponent,
-    PaymentsMethodsComponent
+    PaymentsMethodsComponent,
+    ProductsComponent
   ],
   imports: [
     BrowserModule,
