@@ -9,6 +9,7 @@ import { CategoriesComponent } from './components/categories/categories.componen
 import { ClientsComponent } from './components/clients/clients.component';
 import { CurrenciesComponent } from './components/currencies/currencies.component';
 import { PaymentsMethodsComponent } from './components/payments-methods/payments-methods.component';
+import { ProductsComponent } from './components/products/products.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'/home', pathMatch: 'full'},
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'clients', component: ClientsComponent, canActivate: [PermissionsGuard] },
   { path: 'currencies', component: CurrenciesComponent, canActivate: [PermissionsGuard] },
   { path: 'payments-methods', component: PaymentsMethodsComponent, canActivate: [PermissionsGuard] },
+  { path: 'products', component: ProductsComponent, canActivate: [PermissionsGuard] },
 
   // { path: 'users', component: UsersComponent,
   //   children: [
