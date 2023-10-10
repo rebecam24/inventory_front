@@ -28,14 +28,14 @@ export class LoginService {
                               work_position: ""} },message:"",status:""
   });
 
-  currentUserLoginOn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  currentUserLoginOn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(localStorage.getItem("userLoginOn")==="true"? true: false);
   currentUserData: BehaviorSubject<User> = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')!));
 
   private baseUrl = `${enviroment.baseUrl}/api/`;
 
   constructor(
     private http: HttpClient,
-    ) { }
+    ) {    }
 
   login(credentials: LoginRequest): Promise<LoginResponse> {
     return new Promise((resolve,reject)=>{

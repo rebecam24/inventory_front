@@ -19,10 +19,8 @@ export class AppComponent {
     this.loginService.currentUserLoginOn.subscribe({
       next:(userLoginOn)=>{
         this.userLoginOn = userLoginOn;
+        localStorage.setItem("userLoginOn", `${userLoginOn}`)
       }
     });
-
-    console.log( "appComponent",this.userLoginOn);
-
   }
 }
