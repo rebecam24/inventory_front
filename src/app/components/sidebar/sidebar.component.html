@@ -1,7 +1,7 @@
 <div class="sidebar" [ngClass]="{ 'expanded': isExpanded }" *ngIf="userLoginOn">
   <div class="header">
     <h1 class="title">
-      <span class="fs-5 d-none d-sm-inline">Menu</span>
+      <span class="fs-5 d-none d-sm-inline">Menú</span>
     </h1>
     <!-- <div class="toggle" (click)="handleSidebarToggle()">
       <span class="chevron"></span>
@@ -10,48 +10,48 @@
   <div class="content">
     <div class="link">
       <div class="content" [routerLink]="['/home']" [routerLinkActive]="'active'">
-        <i class="fs-4 bi bi-house"></i> <span class="ms-1 d-none d-sm-inline">Inicio</span>
+        <i class="icon fs-4 bi bi-house"></i> <span class="text ms-1 d-none d-sm-inline">Inicio</span>
       </div>
     </div>
 
     <div class="link">
       <div class="content" [routerLink]="['/categories']" [routerLinkActive]="'active'">
-        <i class="fs-4 bi bi-tags"></i> <span class="ms-1 d-none d-sm-inline">Categorias</span>
+        <i class="icon fs-4 bi bi-tags"></i> <span class="text ms-1 d-none d-sm-inline">Categorias</span>
       </div>
     </div>
     <div class="link">
       <div class="content" [routerLink]="['/clients']" [routerLinkActive]="'active'">
-        <i class="fs-4 bi bi-people"></i> <span class="ms-1 d-none d-sm-inline">Clientes</span>
+        <i class="icon fs-4 bi bi-people"></i> <span class="text ms-1 d-none d-sm-inline">Clientes</span>
       </div>
     </div>
     <div class="link">
       <div class="content" [routerLink]="['/payments-methods']" [routerLinkActive]="'active'">
-        <i class="fs-4 bi bi-coin"></i> <span class="ms-1 d-none d-sm-inline">Metodos de Pago</span>
+        <i class="icon fs-4 bi bi-coin"></i> <span class="text ms-1 d-none d-sm-inline">Metodos de Pago</span>
       </div>
     </div>
     <div class="link">
       <div class="content" [routerLink]="['/currencies']" [routerLinkActive]="'active'">
-        <i class="fs-4 bi bi-coin"></i> <span class="ms-1 d-none d-sm-inline">Monedas</span>
+        <i class="icon fs-4 bi bi-coin"></i> <span class="text ms-1 d-none d-sm-inline">Monedas</span>
       </div>
     </div>
     <div class="link">
       <div class="content" [routerLink]="['/products']" [routerLinkActive]="'active'">
-        <i class="fs-4 bi bi-handbag"></i> <span class="ms-1 d-none d-sm-inline">Productos</span>
+        <i class="icon fs-4 bi bi-handbag"></i> <span class="text ms-1 d-none d-sm-inline">Productos</span>
       </div>
     </div>
     <div class="link with-children">
       <div class="content" [routerLink]="['/users']" [routerLinkActive]="'active'">
-        <i class="fs-4 bi bi-person"></i> <span class="ms-1 d-none d-sm-inline">Usuarios</span>
+        <i class="icon fs-4 bi bi-person"></i> <span class="text ms-1 d-none d-sm-inline">Usuarios</span>
       </div>
     </div>
-    <div class="link" *ngIf="userLoginOn">
-      <div class="content">
+    <div class="link logout" *ngIf="userLoginOn">
+      <div class="content max-width">
         <button
           type="submit"
           class=" flex justify-content-center btn btn-sm bg-transparent"
           (click)="logout()"
           >
-            <i class="fs-4 bi bi-person"></i><span>Cerrar Sesión</span>
+            <i class="icon-logout fs-4 bi bi-person"></i><span class="text-logout ms-1 d-none d-sm-inline">Cerrar Sesión</span>
         </button>
       </div>
     </div>
