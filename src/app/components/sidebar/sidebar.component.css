@@ -5,7 +5,7 @@
   height: 100vh;
   transition: 0.3s;
   width: 60px;
-  background: #fff;
+  background: #05161a;
   color: #6d6e7e;
 }
 .sidebar.expanded {
@@ -29,21 +29,20 @@
   align-items: center;
   justify-content: center;
   padding: 10px;
-  background: #fff;
+  background: #05161a;
 }
 .sidebar .header h1 {
   font-size: 20px;
-  color: #6d6e7e;
+  color: #6da5c0;
   margin: 0;
   flex: 1;
   transition: 0.3s;
   margin-left: -100px;
 }
-
 .sidebar .content .link .content {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 10px;
   cursor: pointer;
   transition: 0.3s;
@@ -81,4 +80,33 @@
   transition: 0.3s;
   max-width: 0px;
   overflow: hidden;
+}
+
+.text {
+  color: #6da5c0;
+  font-size: 16px;
+}
+
+.icon {
+  color: #6da5c0
+}
+
+.logout {
+  position: absolute;
+  bottom: 0%;
+  background: #0f969C;
+}
+
+.text-logout {
+  color: #05161a;
+  font-weight: 600;
+}
+
+.icon-logout {
+  color: #05161a;
+}
+
+.max-width {
+  width: 150px;
+  max-width: 150px;
 }
