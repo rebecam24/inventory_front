@@ -10,6 +10,7 @@ import { ClientsComponent } from './components/clients/clients.component';
 import { CurrenciesComponent } from './components/currencies/currencies.component';
 import { PaymentsMethodsComponent } from './components/payments-methods/payments-methods.component';
 import { ProductsComponent } from './components/products/products.component';
+import { ProvidersComponent } from './components/providers/providers.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'/home', pathMatch: 'full'},
@@ -22,23 +23,7 @@ const routes: Routes = [
   { path: 'currencies', component: CurrenciesComponent, canActivate: [PermissionsGuard] },
   { path: 'payments-methods', component: PaymentsMethodsComponent, canActivate: [PermissionsGuard] },
   { path: 'products', component: ProductsComponent, canActivate: [PermissionsGuard] },
-
-  // { path: 'users', component: UsersComponent,
-  //   children: [
-  //     {
-  //       path: 'show',
-  //       component: ChileComponent
-  //     },
-  //     {
-  //       path: 'argentina',
-  //       component: ArgentinaComponent
-  //     },
-  //     {
-  //       path: 'uruguay',
-  //       component: UruguayComponent
-  //     }
-  //   ]
-  // },
+  { path: 'providers', component: ProvidersComponent, canActivate: [PermissionsGuard] },
 ];
 
 @NgModule({

@@ -59,17 +59,13 @@ export class CategoriesComponent {
 
   async getAllCategories() {
     this.dataCategories = await this.categoriesService.getCategories();
-    console.log("las categorias",this.dataCategories);
-
   }
 
   async showCategoriesModal(id:number) {
     this.showCategory = await this.categoriesService.getShowCategory(id);
-    console.log("showCategory",this.showCategory.data.category);
   }
 
   async createCategoryModal() {
-    console.log("create Category", this.createCategoryForm);
     if (this.createCategoryForm.valid) {
       this.categoriesService.postCreateCategory(this.createCategoryForm.value as Category)
       .then((resp) => {
