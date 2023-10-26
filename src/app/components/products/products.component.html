@@ -1,1 +1,335 @@
-<p>products works!</p>
+
+<app-sidebar [isExpanded]="sidebarExpanded" (toggleSidebar)="sidebarExpanded = !sidebarExpanded"></app-sidebar>
+<div class="content" [ngClass]="{ 'sidebarExpanded': sidebarExpanded }">
+
+  <div class="m-auto col-md-8">
+    <div class="jumbotron jumbotron-fluid modal-static sticky-top mb-0 bg-white">
+      <h1 class="display-3">Productos</h1>
+      <hr class="my-2">
+      <div class="container-fluid">
+        <div class="col-md-12 d-flex flex-row-reverse mb-3">
+          <button type="button"
+                  class="btn btn-outline-secondary"
+                  data-bs-toggle="modal" data-bs-target="#createProductModal"
+                  ><i class="bi bi-person-plus"></i>
+            Registrar Producto
+          </button>
+        </div>
+
+        <div class="flex-row">
+          <div class="col-md-12 col-sm-6 col-lg-12">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Precio</th>
+                  <th scope="col">Cantidad Disponible</th>
+                  <th scope="col">IVA</th>
+                  <th scope="col">Categoria</th>
+                  <th scope="col">Proveedor</th>
+                  <th scope="col">Acciones</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let product of dataProducts.data.products">
+                  <td scope="row">{{ product.id }}</td>
+                  <td scope="row">{{ product.name }}</td>
+                  <td scope="row">{{ product.price }}</td>
+                  <td scope="row">{{ product.quantity_available }}</td>
+                  <td scope="row">{{ product.IVA }}</td>
+                  <td scope="row">{{ product.category }}</td>
+                  <td scope="row">{{ product.provider }}</td>
+                  <td scope="row">
+                    <div class="d-flex justify-content-between">
+                      <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#productModal">
+                        <a (click)="showProductsModal(product.id)">
+                          <i class="bi bi-eye"></i>
+                        </a>
+                      </button>
+                      <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editProductModal">
+                        <a (click)="setEditProductsModal(product.id)">
+                          <i class="bi bi-pencil-square"></i>
+                        </a>
+                      </button>
+                      <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#deleteProductModal">
+                        <a (click)="deleteProductsModal(product.id, product.name)">
+                          <i class="bi bi-trash"></i>
+                        </a>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="productModalLabel">Informacion del Producto</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Nombre de Producto:  {{ showProduct.data.product.name }}</p>
+          <p>Precio:              {{ showProduct.data.product.price }}</p>
+          <p>Cantidad Disponible: {{ showProduct.data.product.quantity_available}}</p>
+          <p>IVA:                 {{ showProduct.data.product.IVA }}</p>
+          <p>Categoria:           {{ showProduct.data.product.category }}</p>
+          <p>Proveedor:           {{ showProduct.data.product.provider }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="createProductModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="createModalLabel">Registrar informacion del Producto</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form [formGroup]="createProductForm" (ngSubmit)="createProductModal()">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="name" class="form-label">Nombre de Producto</label>
+              <input
+              formControlName="name"
+              type="text"
+              class="form-control"
+              id="nameC">
+
+              <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                class="text-danger">
+                <div *ngIf="name.errors?.['minlength']">
+                  El nombre debe tener mas de 3 caracteres
+                </div>
+                <div *ngIf="name.errors?.['maxlength']">
+                  El nombre debe tener menos de 45 caracteres
+                </div>
+
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="price" class="form-label">Precio</label>
+              <input
+              formControlName="price"
+              type="text"
+              class="form-control"
+              id="priceC">
+
+              <div *ngIf="price.invalid && (price.dirty || price.touched)"
+                class="text-danger">
+                <div *ngIf="price.errors?.['required']">
+                  El precio es requerido
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="quantity_available" class="form-label">Cantidad Disponible</label>
+              <input
+              formControlName="quantity_available"
+              type="number"
+              min="0"
+              class="form-control"
+              id="quantity_availableC">
+
+              <div *ngIf="quantity_available.invalid && (quantity_available.dirty || quantity_available.touched)"
+                class="text-danger">
+                <div *ngIf="quantity_available.errors?.['required']">
+                  La cantidad de producto es requerida
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="IVA" class="form-label">IVA</label>
+              <input
+              formControlName="IVA"
+              type="number"
+              min="0"
+              class="form-control"
+              id="IVAC">
+
+              <div *ngIf="IVA.invalid && (IVA.dirty || IVA.touched)"
+                class="text-danger">
+                <div *ngIf="IVA.errors?.['required']">
+                  El IVA es requerido
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="category_id" class="form-label">Categoria</label>
+              <select
+              formControlName="category_id"
+              type="text"
+              class="form-control"
+              id="category_id">
+                <option [value]="-1" selected>Seleccione categoria</option>
+                <option [value]="item.id" *ngFor="let item of categories">{{item.name}}</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="provider_id" class="form-label">Proveedor</label>
+              <select
+                formControlName="provider_id"
+                type="text"
+                class="form-control"
+                id="provider_id">
+                  <option [value]="-1" selected>Seleccione proveedor</option>
+                  <option [value]="item.id" *ngFor="let item of providers">{{item.name}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Registrar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="editModalLabel">Editar informacion del Producto</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form [formGroup]="editProductForm" (ngSubmit)="editProductModal(showProduct.data.product.id)">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="name" class="form-label">Nombre de Producto</label>
+              <input
+              formControlName="name"
+              type="text"
+              class="form-control"
+              id="nameE">
+
+              <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                class="text-danger">
+                <div *ngIf="name.errors?.['minlength']">
+                  El nombre debe tener mas de 3 caracteres
+                </div>
+                <div *ngIf="name.errors?.['maxlength']">
+                  El nombre debe tener menos de 45 caracteres
+                </div>
+
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="price" class="form-label">Precio</label>
+              <input
+              formControlName="price"
+              type="text"
+              class="form-control"
+              id="priceE">
+
+              <div *ngIf="price.invalid && (price.dirty || price.touched)"
+                class="text-danger">
+                <div *ngIf="price.errors?.['required']">
+                  El precio es requerido
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="quantity_available" class="form-label">Cantidad Disponible</label>
+              <input
+              formControlName="quantity_available"
+              type="number"
+              min="0"
+              class="form-control"
+              id="quantity_availableE">
+
+              <div *ngIf="quantity_available.invalid && (quantity_available.dirty || quantity_available.touched)"
+                class="text-danger">
+                <div *ngIf="quantity_available.errors?.['required']">
+                  La cantidad de producto es requerida
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="IVA" class="form-label">IVA</label>
+              <input
+              formControlName="IVA"
+              type="number"
+              min="0"
+              class="form-control"
+              id="IVAE">
+
+              <div *ngIf="IVA.invalid && (IVA.dirty || IVA.touched)"
+                class="text-danger">
+                <div *ngIf="IVA.errors?.['required']">
+                  El IVA es requerido
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="category_id" class="form-label">Categoria</label>
+              <select
+              formControlName="category_id"
+              type="text"
+              class="form-control"
+              id="category_idE">
+                <option [value]="-1" selected>Seleccione categoria</option>
+                <option [value]="item.id" *ngFor="let item of categories">{{item.name}}</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="provider_id" class="form-label">Proveedor</label>
+              <select
+                formControlName="provider_id"
+                type="text"
+                class="form-control"
+                id="provider_idE">
+                  <option [value]="-1" selected>Seleccione proveedor</option>
+                  <option [value]="item.id" *ngFor="let item of providers">{{item.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Actualizar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="deleteModalLabel">Eliminar Producto</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ¿Esta seguro que desea eliminar el producto: {{nameDelete}}?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" (click)="delete(idDelete)" data-bs-dismiss="modal">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
