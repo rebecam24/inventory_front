@@ -1,0 +1,214 @@
+<app-sidebar [isExpanded]="sidebarExpanded" (toggleSidebar)="sidebarExpanded = !sidebarExpanded"></app-sidebar>
+<div class="content" [ngClass]="{ 'sidebarExpanded': sidebarExpanded }">
+
+  <div class="m-auto col-md-8">
+    <div class="jumbotron jumbotron-fluid modal-static sticky-top mb-0 bg-white">
+      <h1 class="display-3">Categorias</h1>
+      <hr class="my-2">
+      <div class="container-fluid">
+        <div class="col-md-12 d-flex flex-row-reverse mb-3">
+          <button type="button"
+                  class="btn btn-outline-secondary"
+                  data-bs-toggle="modal" data-bs-target="#createCategoryModal"
+                  ><i class="bi bi-person-plus"></i>
+            Registrar Categoria
+          </button>
+        </div>
+
+        <div class="flex-row">
+          <div class="col-md-12 col-sm-6 col-lg-12">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Categoria</th>
+                  <th scope="col">Descripcion</th>
+                  <th scope="col">Acciones</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let category of dataCategories.data.categories">
+                  <td scope="row">{{ category.id }}</td>
+                  <td scope="row">{{ category.name }}</td>
+                  <td scope="row">{{ category.description }}</td>
+                  <td scope="row">
+                    <div class="d-flex justify-content-between">
+                      <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#categoryModal">
+                        <a (click)="showCategoriesModal(category.id)">
+                          <i class="bi bi-eye"></i>
+                        </a>
+                      </button>
+                      <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editCategoryModal">
+                        <a (click)="setEditCategoriesModal(category.id)">
+                          <i class="bi bi-pencil-square"></i>
+                        </a>
+                      </button>
+                      <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal">
+                        <a (click)="deleteCategoriesModal(category.id, category.name)">
+                          <i class="bi bi-trash"></i>
+                        </a>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="categoryModalLabel">Informacion del Categoria</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Nombre de Categoria:        {{ showCategory.data.category.name }}</p>
+          <p>Descripcion:                {{ showCategory.data.category.description }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="createCategoryModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="createModalLabel">Registrar informacion del Categoria</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form [formGroup]="createCategoryForm" (ngSubmit)="createCategoryModal()">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="name" class="form-label">Nombre de Categoria</label>
+              <input
+              formControlName="name"
+              type="text"
+              class="form-control"
+              id="nameC">
+
+              <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                class="text-danger">
+                <div *ngIf="name.errors?.['minlength']">
+                  El nombre debe tener mas de 3 caracteres
+                </div>
+                <div *ngIf="name.errors?.['maxlength']">
+                  El nombre debe tener menos de 45 caracteres
+                </div>
+
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="description" class="form-label">Descripcion</label>
+              <input
+              formControlName="description"
+              type="text"
+              class="form-control"
+              id="descriptionC">
+
+              <div *ngIf="description.invalid && (description.dirty || description.touched)"
+                class="text-danger">
+                <div *ngIf="description.errors?.['minlength']">
+                  La descripcion debe tener mas de 3 caracteres
+                </div>
+                <div *ngIf="description.errors?.['maxlength']">
+                  La descripcion debe tener menos de 45 caracteres
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Registrar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="editModalLabel">Editar informacion del Categoria</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form [formGroup]="editCategoryForm" (ngSubmit)="editCategoryModal(showCategory.data.category.id)">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="name" class="form-label">Nombre de Categoria</label>
+              <input
+              formControlName="name"
+              type="text"
+              class="form-control"
+              id="nameE">
+
+              <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                class="text-danger">
+                <div *ngIf="name.errors?.['minlength']">
+                  El nombre debe tener mas de 3 caracteres
+                </div>
+                <div *ngIf="name.errors?.['maxlength']">
+                  El nombre debe tener menos de 45 caracteres
+                </div>
+
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="description" class="form-label">Descripcion</label>
+              <input
+              formControlName="description"
+              type="text"
+              class="form-control"
+              id="descriptionE">
+
+              <div *ngIf="description.invalid && (description.dirty || description.touched)"
+                class="text-danger">
+                <div *ngIf="description.errors?.['minlength']">
+                  El apellido debe tener mas de 3 caracteres
+                </div>
+                <div *ngIf="description.errors?.['maxlength']">
+                  El apellido debe tener menos de 45 caracteres
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Actualizar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="deleteCategoryModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="deleteModalLabel">Eliminar Categoria</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ¿Esta seguro que desea eliminar categoria: {{nameDelete}}?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" (click)="delete(idDelete)" data-bs-dismiss="modal">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

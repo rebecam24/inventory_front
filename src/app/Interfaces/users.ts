@@ -4,8 +4,23 @@ export interface DataResponse {
   data: Data
 }
 
+export interface DataResponseSaveOrUpdate {
+  status: string
+  message: string
+  data: DataEdit
+}
+
+export interface DataResponseDelete {
+  status: string
+  message: string
+  data: []
+}
 export interface Data {
   users: User[]
+}
+
+export interface DataEdit {
+  user: User
 }
 
 export interface User {

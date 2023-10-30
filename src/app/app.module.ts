@@ -12,6 +12,13 @@ import { FooterComponent } from './components/footer/footer.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { CategoriesComponent } from './components/categories/categories.component';
+import { ClientsComponent } from './components/clients/clients.component';
+import { CurrenciesComponent } from './components/currencies/currencies.component';
+import { PaymentsMethodsComponent } from './components/payments-methods/payments-methods.component';
+import { ProductsComponent } from './components/products/products.component';
+import { ProvidersComponent } from './components/providers/providers.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +29,14 @@ import { ReactiveFormsModule } from '@angular/forms';
     HeaderComponent,
     FooterComponent,
     DashboardComponent,
-    NavbarComponent
+    NavbarComponent,
+    SidebarComponent,
+    CategoriesComponent,
+    ClientsComponent,
+    CurrenciesComponent,
+    PaymentsMethodsComponent,
+    ProductsComponent,
+    ProvidersComponent
   ],
   imports: [
     BrowserModule,
