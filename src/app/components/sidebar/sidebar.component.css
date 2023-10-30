@@ -6,7 +6,7 @@
   transition: 0.3s;
   width: 60px;
   background: #05161a;
-  color: #6d6e7e;
+  color: #FFFFFF;
 }
 .sidebar.expanded {
   width: 150px;
@@ -49,6 +49,7 @@
 }
 .sidebar .content .link .content:hover {
   background: #38b0de;
+  color: #FFFFFF;
 }
 .sidebar .content .link .content:hover {
   color: #fff;
@@ -56,7 +57,7 @@
 }
 
 .sidebar .content .link .content .button:hover {
-  color: #fff;
+  color: #FFFFFF;
   border: transparent;
 }
 
@@ -65,7 +66,7 @@
   border-radius: 20px;
 }
 .sidebar .content .link .content.active  {
-  color: #fff;
+  color: #FFFFFF;
 }
 .sidebar .content .link .content .icon {
   flex: 0 0 30px;
@@ -76,34 +77,34 @@
 }
 .sidebar .content .link .content .title {
   flex: 1;
-  color: #6d6e7e;
+  color: #FFFFFF;
   transition: 0.3s;
   max-width: 0px;
   overflow: hidden;
 }
 
 .text {
-  color: #6da5c0;
+  color: #FFFFFF;
   font-size: 16px;
 }
 
 .icon {
-  color: #6da5c0
+  color: #FFFFFF;
 }
 
 .logout {
   position: absolute;
   bottom: 0%;
-  background: #0f969C;
+  background: #05161a;
 }
 
 .text-logout {
-  color: #05161a;
+  color: #FFFFFF;
   font-weight: 600;
 }
 
 .icon-logout {
-  color: #05161a;
+  color: #FFFFFF;
 }
 
 .max-width {
